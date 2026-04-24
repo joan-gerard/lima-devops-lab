@@ -1,0 +1,28 @@
+# Direct link to the Ubuntu Noble Cloud Image for ARM64 (AArch64)
+images:
+- location: "https://cloud-images.ubuntu.com/releases/noble/release/ubuntu-24.04-server-cloudimg-arm64.img"
+  arch: "aarch64"
+
+# Give the VM some power
+cpus: 2
+memory: "4GiB"
+disk: "20GiB"
+
+# Automatically mount your Mac's Home folder inside the VM
+# This creates the "bridge" we discussed
+mounts:
+- location: "~"
+  writable: true
+
+# Enable Docker
+containerd:
+  system: true
+  user: true
+
+# Provisioning: This runs automatically on the first boot
+provision:
+- mode: system
+  script: |
+    apt-get update
+    apt-get install -y docker.io docker-compose
+    systemctl enable --now docker

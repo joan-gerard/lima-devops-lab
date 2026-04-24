@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    restart: always
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: joan
+      POSTGRES_PASSWORD: devopspassword
+      POSTGRES_DB: lab_db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    restart: always
+
+volumes:
+  postgres_data:
+
